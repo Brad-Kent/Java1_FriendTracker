@@ -2,6 +2,7 @@ package ICTPRG418;
 
 
 import javafx.application.Application;
+import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,7 +16,8 @@ import javafx.stage.Stage;
 
 public class FriendTracker extends Application
 {
-	// Screen Fields   // final JFXPanel fxPanel = new JFXPanel();
+	// Screen Fields   
+	//final JFXPanel fxPanel = new JFXPanel();
 	private static final String appTitle = "Friend Tracker";
 	private static final int screenY = 400;
 	private static final int screenX = 640;
@@ -112,6 +114,9 @@ public class FriendTracker extends Application
         		// Add to Grid
         		contentRoot.add(dataMods[i], 4, i + 2);
         }
+        
+        TextField temp = new TextField();
+        temp.setMinSize(40, 20);
         // Close button needs to be at the bottom line 
         dataMods[4] = new Button(dataModsNames[4]);
         dataMods[4].setMinWidth(80);
@@ -119,17 +124,20 @@ public class FriendTracker extends Application
 	}
 	private void setUpAppStateButtons()
 	{
-		 //  Data Selector/'s finders, exit
+		 // Data Selector/'s finders, exit
 		appNavigationButtons = new Button[5];
         String[] navSymboles = {"|<", "<", ">", ">|", "Birthdays In Month Of: "};
         
         // Bottom Collection of Button Modifiers 
 		HBox hbox = new HBox();
-		hbox.setSpacing(20);
+		hbox.setSpacing(5);
 		for (int i = 0; i < appNavigationButtons.length; i++) {
 			appNavigationButtons[i] = new Button(navSymboles[i]);
 			hbox.getChildren().add(appNavigationButtons[i]);
 		}
+		TextField search = new TextField();
+		search.setMinWidth(80); search.setMaxWidth(110);
+		hbox.getChildren().add(search);
 		contentRoot.add(hbox, 0, 8, 4 ,1);
 	}
 }// End of Class 

@@ -1,5 +1,6 @@
 package ICTPRG418;
 
-public class Controller {
+public class Controller 
+{
 
 }
