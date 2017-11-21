@@ -1,6 +1,8 @@
 package ICTPRG418;
 
+import dataBase.DataBaseLoader;
 import javafx.application.Application;
+import view.FriendTracker;
 
 public class Launch 
 {
@@ -8,8 +10,8 @@ public class Launch
 	{
 		// Application.launch(FriendTracker.class);
 		//new FriendTracker().launchApp(args);
-		Application.launch(FriendTracker.class, args);
-		 
+		//Application.launch(FriendTracker.class, args);
+		new DataBaseLoader().connectToFilesOnDisk();
 	}
 
 }

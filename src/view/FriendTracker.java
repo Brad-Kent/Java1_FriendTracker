@@ -1,8 +1,7 @@
-package ICTPRG418;
+package view;
 
 
 import javafx.application.Application;
-import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -140,4 +139,11 @@ public class FriendTracker extends Application
 		hbox.getChildren().add(search);
 		contentRoot.add(hbox, 0, 8, 4 ,1);
 	}
+	
+	private void setUpButtonEvents()
+	{
+		// TODO: dataMod Buttons
+		// TODO: appNavigationButtons
+	}
+	
 }// End of Class 
