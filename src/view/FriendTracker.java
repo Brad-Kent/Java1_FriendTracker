@@ -1,7 +1,7 @@
 package view;
 
-
-import javafx.application.Application;
+import controller.Controller;
+import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,13 +13,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class FriendTracker extends Application
+public class FriendTracker 
 {
 	// Screen Fields   
-	//final JFXPanel fxPanel = new JFXPanel();
+	//private static JFXPanel fxPanel = new JFXPanel();
 	private static final String appTitle = "Friend Tracker";
 	private static final int screenY = 400;
 	private static final int screenX = 640;
+	private Controller conn;
 
 	/// Root Content Branch 
 	private GridPane contentRoot;
@@ -30,6 +31,7 @@ public class FriendTracker extends Application
 	private TextField[] friendTextFields    ;
 	private Button   [] dataMods            ;
     private Button   [] appNavigationButtons;
+    public TextField search;
 
     /**Construtor**/
 	public FriendTracker()
@@ -39,22 +41,28 @@ public class FriendTracker extends Application
 		setUpInputLables      ();
 		setUpAppDataModButtons();
 		setUpAppStateButtons  ();
-		//contentRoot.setGridLinesVisible(true);
+
 	}
+	/**Getters & Setters**/
+	public TextField[] getFriendTextFields    () {return friendTextFields     ; }
+	public Button   [] getDataMods            () { return dataMods            ; }
+	public Button   [] getAppNavigationButtons() { return appNavigationButtons; }
+	
+	public void setFriendTextFields    (TextField[] friendTextFields    ) { this.friendTextFields     = friendTextFields    ; }
+	public void setDataMods            (Button   [] dataMods            ) { this.dataMods             = dataMods            ; }
+	public void setAppNavigationButtons(Button   [] appNavigationButtons) { this.appNavigationButtons = appNavigationButtons; }
+
 	/**JavaFx Applicaton**/
-	// (optional)
-	public void launchApp(String[] args){ Application.launch(); }
-	// #FX Entry Point
-	@Override
-	public void start(Stage stage) throws Exception
+	//public void launchApp(String[] args, Controller conn){  Application.launch(this.getClass(), args); Platform.runLater( () -> conn.setView(getInstance()));}
+	public void start(Stage stage) 
 	{
-        // add padding below Title 
         Label paddMe = new Label();
         paddMe.setMinHeight(20);
         contentRoot.add(paddMe, 0, 1);
    
 		setupStage(stage, new Scene(contentRoot, screenX, screenY, Color.BLUE));
 	}
+	
 	/**Set-Up-Methods **/
 	private void setUpTitle()
 	{
@@ -68,7 +76,6 @@ public class FriendTracker extends Application
 		stage.setScene(scene);
 		stage.show();
 	}
-	/**Set Up Methods for Application Screen**/
 	private void setUpContentGrid()
 	{
 		contentRoot = new GridPane();
@@ -76,7 +83,6 @@ public class FriendTracker extends Application
 		contentRoot.setHgap(10);
 		contentRoot.setVgap(10);
 	}
-
 	private void setUpInputLables()
 	{
 		// Friend Attributes 
@@ -134,16 +140,9 @@ public class FriendTracker extends Application
 			appNavigationButtons[i] = new Button(navSymboles[i]);
 			hbox.getChildren().add(appNavigationButtons[i]);
 		}
-		TextField search = new TextField();
+		search = new TextField();
 		search.setMinWidth(80); search.setMaxWidth(110);
 		hbox.getChildren().add(search);
 		contentRoot.add(hbox, 0, 8, 4 ,1);
 	}
-	
-	private void setUpButtonEvents()
-	{
-		// TODO: dataMod Buttons
-		// TODO: appNavigationButtons
-	}
-	
-}// End of Class 
+} 
