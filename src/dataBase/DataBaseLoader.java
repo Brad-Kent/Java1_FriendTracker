@@ -29,7 +29,7 @@ public class DataBaseLoader
 	// File and Path's 
 	private File file             = new File("");
 	private String pathToDatabase = "/dataBase/";
-	private String databaseFile   = "final.txt";
+	private String databaseFile   = "friend50.txt";
 	
 	// Getters & Setters 
 	public static DataBaseLoader getDataBaseLoader() { return db; }
@@ -45,7 +45,7 @@ public class DataBaseLoader
 			reader = new BufferedReader(fileReader);
 			String line = null; int index = 0;
 			while((line = reader.readLine()) != null) {
-					  System.out.println(line);
+					//  System.out.println(line);
 					  lines[index++] = line;
 			}   
 			reader.close();
@@ -64,9 +64,10 @@ public class DataBaseLoader
 		
 		String[] temp1 = new String[50];
 		String[] temp2 = new String[50];
+		String[] temp3 = new String[50];
 		int index = 0;
 		try {
-			fileReader = new FileReader(currentDir + pathToDatabase + "likes.txt");
+			fileReader = new FileReader(currentDir + pathToDatabase + "fold/namesF.txt");
 			reader = new BufferedReader(fileReader);
 			
 			while((line = reader.readLine()) != null) {
@@ -75,18 +76,26 @@ public class DataBaseLoader
 			}   
 			System.out.println("DISLIKES.........");
 			index = 0;
-			fileReader = new FileReader(currentDir + pathToDatabase + "dislikes.txt");
+			fileReader = new FileReader(currentDir + pathToDatabase + "fold/datesF.txt");
 			reader = new BufferedReader(fileReader);
 			while((line = reader.readLine()) != null) {
 				  System.out.println(line);
 				  temp2[index++] = line;
 			}   
+			index = 0;
+			fileReader = new FileReader(currentDir + pathToDatabase + "newFile.txt");
+			reader = new BufferedReader(fileReader);
+			while((line = reader.readLine()) != null) {
+				  System.out.println(line);
+				  temp3[index++] = line;
+			}   
 			
-			fileWriter = new FileWriter(currentDir + pathToDatabase + "newFile.txt");
+			
+			fileWriter = new FileWriter(currentDir + pathToDatabase + "newFile1.txt");
 			writer = new BufferedWriter(fileWriter);
 			
 			for(int i = 0; i < temp1.length; i++) {
-				writer.write(temp1[i] + "," + temp2[i]);
+				writer.write(temp1[i] + "," + temp3[i] + "," + temp2[i]);
 				writer.newLine();
 			}
 			

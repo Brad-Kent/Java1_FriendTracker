@@ -40,14 +40,10 @@ public class Controller extends Application
 	
 	public Controller()
 	{
-	//	m_view = new FriendTracker();
-	//	m_currentFriend = 0;
-	//	md_friends = Friend.FriendDataFormatter.getFriends();
-
-		// TODO: Init friends[] via Friend
-		
-		DataBaseLoader db = DataBaseLoader.getDataBaseLoader();
-		db.connectToFilesOnDisk();
+		m_view = new FriendTracker();
+		m_currentFriend = 0;
+		md_friends = Friend.FriendDataFormatter.getFriends();
+		System.out.println("Back");
 	}
 	
 	/**Class Methods**/ 
@@ -78,12 +74,13 @@ public class Controller extends Application
 	// This gets Called every time a State Mod Btn is pressed 
 	private void updateFriendFields()
 	{
-		  for(int i = 0; i < md_friends[m_currentFriend].getFriendData().length; i++) 
-			  m_view.getFriendTextFields()[i].setText(md_friends[i].getFriendData()[i]);
+//		  for(int i = 0; i < 5; i++) 
+//			  m_view.getFriendTextFields()[i].setText(md_friends[i].getFriendData()[i]);
+		System.out.println("friend name : " + md_friends[0].getFriendData()[0] + " " + md_friends[0].getFriendData()[1]);
 	}
 		
 	private void modData(ActionEvent e)
-	{
+	{ 
 		//m_view.getFriendTextFields()[0].setText("Yay i am happy");
 		updateFriendFields();
 	}

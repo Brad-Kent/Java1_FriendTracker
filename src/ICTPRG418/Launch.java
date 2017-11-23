@@ -6,7 +6,7 @@ public class Launch
 {	
 	public static void main(String[] args)
 	{
-		//Controller.launchApp();
-		new Controller();
+		Controller.launchApp();
+		//new Controller();
 	}
 }

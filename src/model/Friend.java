@@ -46,50 +46,48 @@ public class Friend
 		{
 			
 			// Basic Format, security, exception check yet TODO: Advanced 
-			Friend[] friends = new Friend[1024];
+			Friend[] friends = new Friend[50];
 			String[][] friendData = formateData(db.getDataFromDataBase(dataIdCode));
 			
 			//if(friendData == null) return null; // #This should be a custom exception.
-			System.out.println("creting Friends :D " + friendData.length);
+			System.out.println("creating Friends :D " + friendData.length);
 			
 			// Create Friend Instances with Data from dataBase
-//			int currentIndex = 0, maxIndex = friendData.length;
-//			while(currentIndex < maxIndex) {
-//				// Assume field data structor is in order [str, str, str, int, int, int]
-//				Friend temp = new Friend(); 
-//				int index = 0;
-//				temp.md_friendData = friendData[index];
-//				temp.m_Name = friendData[currentIndex][index++];
-//				temp.m_Likes = friendData[currentIndex][index++];
-//				temp.m_Dislikes = friendData[currentIndex][index++];
-//				temp.m_BirthdayDay   = Integer.valueOf(friendData[currentIndex][index++]);
-//				temp.m_BirthdayMonth = Integer.valueOf(friendData[currentIndex][index++]);
-//				temp.m_BirthdayYear  = Integer.valueOf(friendData[currentIndex][index]);
-//				
-//				friends[currentIndex] = temp;
-//			}
-		
-//			 String[] temp = {"Name", "Likes", "Dislikes", "Day", "Month"};
-//
-//			Friend[] gg = new Friend[1];
-//			gg[0] = new Friend();
-//			gg[0].setFriendData(new String[] {"Name", "Likes", "Dislikes", "Day", "Month"});
-//			return gg; //friends;
+			int currentIndex = 0, maxIndex = friendData.length;
+			while(currentIndex < maxIndex) {
+				// Assume field data structor is in order [str, str, str, int, int, int]
+				Friend temp = new Friend(); 
+				int index = 0;
+				temp.md_friendData = friendData[currentIndex];
+				temp.m_Name = (friendData[currentIndex][index++] + " "  + friendData[currentIndex][index++]);
+				System.out.println(temp.m_Name + "  " + index);
+				temp.m_Likes = friendData[currentIndex][index++];
+				temp.m_Dislikes = friendData[currentIndex][index++];
+				temp.m_BirthdayDay   = Integer.valueOf(friendData[currentIndex][index++]);
+				temp.m_BirthdayMonth = Integer.valueOf(friendData[currentIndex][index++]);
+				temp.m_BirthdayYear  = Integer.valueOf(friendData[currentIndex][index]);
+				
+				friends[currentIndex++] = temp;
+			}
+			System.out.println("Done");
 			return friends;
 		}
 		private static String[][] formateData(String[] data)
 		{
-			if(data == null) return null;
+			//if(data == null) return null;
 			
 			String[][] formattedData = new String[data.length][6]; 
-			int index = 0;
-			for(String subData: data) {
-				formattedData[index] = subData.split(",");
+			
+			for(int i = 0; i < data.length; i++) {
+				String[] splitData = data[i].split(",");
+				formattedData[i] = splitData;
+//				for(String pp : formattedData[i])
+//					System.out.print(pp + "|");
+//				System.out.println();
 			}
 
 			return formattedData;
 		}
 		
-	}
-	
-}
+	}// End of Inner Class
+}//End of Main Class
