@@ -1,17 +1,22 @@
 package view;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import controller.Controller;
-import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import model.Friend;
 
 public class FriendTracker 
 {
@@ -25,13 +30,18 @@ public class FriendTracker
 	/// Root Content Branch 
 	private GridPane contentRoot;
 	private Label contentTitle;
+	private Stage stage;
+	private Scene scene;
 	
 	// Friend Data Widgets 
 	private Label    [] inputLabels         ; 
 	private TextField[] friendTextFields    ;
 	private Button   [] dataMods            ;
     private Button   [] appNavigationButtons;
-    public TextField search;
+    private TextField search;
+    
+    // Search Result View
+    private SearchResultView searchResultView;
 
     /**Construtor**/
 	public FriendTracker()
@@ -41,13 +51,19 @@ public class FriendTracker
 		setUpInputLables      ();
 		setUpAppDataModButtons();
 		setUpAppStateButtons  ();
-
+		
+		searchResultView = new SearchResultView();
 	}
 	/**Getters & Setters**/
-	public TextField[] getFriendTextFields    () {return friendTextFields     ; }
+	public TextField[] getFriendTextFields    () { return friendTextFields    ; }
 	public Button   [] getDataMods            () { return dataMods            ; }
 	public Button   [] getAppNavigationButtons() { return appNavigationButtons; }
+	public Stage       getStage			     () { return stage               ; }
+	public TextField getSearch                () { return search              ; }
 	
+	public SearchResultView getSearchResultView() { return searchResultView; }
+
+
 	public void setFriendTextFields    (TextField[] friendTextFields    ) { this.friendTextFields     = friendTextFields    ; }
 	public void setDataMods            (Button   [] dataMods            ) { this.dataMods             = dataMods            ; }
 	public void setAppNavigationButtons(Button   [] appNavigationButtons) { this.appNavigationButtons = appNavigationButtons; }
@@ -60,7 +76,9 @@ public class FriendTracker
         paddMe.setMinHeight(20);
         contentRoot.add(paddMe, 0, 1);
    
-		setupStage(stage, new Scene(contentRoot, screenX, screenY, Color.BLUE));
+        this.stage = stage;
+		scene = new Scene(contentRoot, screenX, screenY, Color.BLUE);
+		setupStage();
 	}
 	
 	/**Set-Up-Methods **/
@@ -70,11 +88,12 @@ public class FriendTracker
 		contentTitle.setFont(new Font("Cambbria", 40));
 		contentRoot.add(contentTitle, 0, 0, 4, 1);
 	}
-	private void setupStage(Stage stage, Scene scene)
+	private void setupStage()
 	{
-		stage.setTitle(appTitle);
-		stage.setScene(scene);
-		stage.show();
+		stage.setResizable(false   );
+		stage.setTitle    (appTitle);
+		stage.setScene    (scene   );
+		stage.show        (        );
 	}
 	private void setUpContentGrid()
 	{
@@ -145,4 +164,73 @@ public class FriendTracker
 		hbox.getChildren().add(search);
 		contentRoot.add(hbox, 0, 8, 4 ,1);
 	}
-} 
+	public class SearchResultView
+	{
+		private static final String appTitle = "Birtthdays by Month";
+		private static final int screenY = 400;
+		private static final int screenX = 640;
+		
+		private Stage stage ;
+		private Scene scene;
+		
+		private VBox     contentRoot;
+		private Label    label      ;
+		private TextArea ta_Bdays   ;
+		
+		public void addFriendDatas(String[][] data)
+		{
+			Arrays.sort(data, new Comparator<String[]>() {
+				@Override
+				public int compare(String[] o1, String[] o2) {
+					return o1[3].compareToIgnoreCase(o2[3]);
+				}
+			});
+			
+			ta_Bdays.clear();
+			
+			for(String[] friend : data) {
+				for(int i =  0; i < friend.length; i++) {
+					ta_Bdays.appendText(" - " + friend[i]);
+					
+				}
+					
+				ta_Bdays.appendText("\n");
+			}
+			
+		}
+	    public SearchResultView()
+		{
+			setUpContentRoot();
+			setUpScene      ();
+			setUpStage      ();
+		}
+		/** SetUp Methods **/
+		private void setUpContentRoot()
+		{
+			// Needs more data: month of year 
+			label = new Label("Birthdays for: ");
+			label.setFont(new Font("Cambbria", 20));
+			label.setPadding(new Insets(5));
+		
+			ta_Bdays = new TextArea();
+			ta_Bdays.setMaxSize(600, 360);
+			ta_Bdays.setMinHeight(320);
+			ta_Bdays.setStyle("-fx-text-alignment: center;");
+			contentRoot = new VBox(label, ta_Bdays);
+			contentRoot.setPadding(new Insets(10, 0, 10, 20));
+			//VBox.setMargin(contentRoot, new Insets(5));
+		}
+		private void setUpScene()
+		{
+			scene = new Scene(contentRoot, screenX, screenY);
+		}
+		private void setUpStage()
+		{
+			stage = new Stage();
+			stage.setScene(scene);
+			stage.setTitle(appTitle);
+			stage.setResizable(false);
+			stage.show();
+		}
+	} // End of Innder Class
+} // End of Class
