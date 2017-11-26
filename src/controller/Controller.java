@@ -71,12 +71,12 @@ public class Controller extends Application
 		// Get the friend data setup 
 		setUpDataModButtonEvents  ();
 		setUpFriendDataModsButtons();
+		
 		// Sort then load First Friend Data -> View
 		sortFriendArray();
 		modData( null, IteratorDirection.FIRST);
 		
 		m_view.getAppNavigationButtons()[4].setOnAction(e -> binarySearchFriendsBday());
-		
 		
 		// Tell view to: Init and Show View
 		m_view.start(stage);
@@ -168,13 +168,15 @@ public class Controller extends Application
 			break;
 		case CLOSE:
 			// Save and close application , save is optional 
+			Friend.FriendDataFormatter.writeFriendsToDataBase(md_friends, m_numOfFriends);
+			m_view.getStage().close();
 			m_view.getStage().close();
 			break;
 		}
 	}
 	private void newFriend()
 	{
-		m_numOfFriends++;
+		
 		Friend newFriend = new Friend();
 		newFriend.setFriendData(new String[] {});
 		newFriend.setM_Name("Name");
@@ -183,8 +185,12 @@ public class Controller extends Application
 		newFriend.setM_BirthdayDay("BirthDay Day");
 		newFriend.setM_BirthdayMonth("Birthday Month");
 		
-		md_friends[m_numOfFriends - 1] = newFriend;
-		m_currentFriend = m_numOfFriends - 1;
+		newFriend.setFriendData(new String[]{"Name", "lastName", "likes", "Dislikes", "bday day", "bday month", "year"});
+		
+		md_friends[m_numOfFriends] = newFriend;
+		m_currentFriend = m_numOfFriends;
+
+		m_numOfFriends++;
 		updateFriendFields();
 	}
 	private void saveFriendChanges()
@@ -331,65 +337,3 @@ public class Controller extends Application
 }// End of Class
 
 
-
-/**
- * I think the problem with this due to the looping use in a while loop, i.e. the loop runs for and extra in both left and right unless rules are broke n >0 < 49..
- * 
- * 	    // found sequence of Bdays Months 
- * 
- * 
-	    		// need to find Start & End of Sequence 
-	    int startingPoint = mid - 1;
-	    int endPoint = mid;
-	    
-	    int bdayMonth = x;   //Integer.valueOf(md_friends[mid].getM_BirthdayMonth());
-	    System.out.println("Month: " + x);
-	    while( startingPoint > 0) {
-	    		if( bdayMonth == (Integer.valueOf(md_friends[startingPoint].getM_BirthdayMonth()))) {
-	    			startingPoint--;
-	    		}
-	    		else 
-	    			break;
-	    }
-	    while( endPoint < (m_numOfFriends - 1)) {
-	    	if( bdayMonth == (Integer.valueOf(md_friends[endPoint].getM_BirthdayMonth()))) {
-	    		System.out.println("Loop: " + Integer.valueOf(md_friends[endPoint].getM_BirthdayMonth()));
-	    		++endPoint;	
-	    	}
-	 	else 
-    			break;
-	    }
-	    
-	    
-	    
-//	    if((Integer.valueOf(md_friends[endPoint].getM_BirthdayMonth())) != x)
-//	    		System.out.println("You are fucked Java");
-	
-	 
-	    
-	    
-	    int index = endPoint - startingPoint;
-	    System.out.println("Mid Index: "+ mid);
-	    System.out.println("NumOfBdays: " + index + "| Start Index: " + startingPoint + " | End Index: " + endPoint);
-	  
-	    m_currentFriend = endPoint;
-	    updateFriendFields();
-	    
-	    
-	    String[][] friendData = new String[index][5];
-//	    int subIndex = 0;
-//	    for(int i = startingPoint; i <= endPoint; i++) {
-//	    			friendData[i][subIndex++] = md_friends[i].getM_Name() + " ";
-//	    			friendData[i][subIndex++] = md_friends[i].getM_Likes() + " ";
-//	    			friendData[i][subIndex++] = md_friends[i].getM_Dislikes() + " " ;
-//	    			friendData[i][subIndex++] = md_friends[i].getM_BirthdayDay() + " ";
-//	    			friendData[i][subIndex++] = md_friends[i].getM_BirthdayMonth();
-//	    			System.out.println("Friend Index: " + i + ", ");
-//	    			subIndex = 0;
-//	    }
-//	   m_view.getSearchResultView().addFriendDatas(friendData);
-//	   m_currentFriend = startingPoint;
-//	   updateFriendFields();
- * 
- * /
- */

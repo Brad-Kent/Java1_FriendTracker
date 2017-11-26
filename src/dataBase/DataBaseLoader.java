@@ -55,5 +55,25 @@ public class DataBaseLoader
 		
 		return lines;
 	}
+	public void writeFriendsDataToFile(String[][] friends)
+	{
+		String currentDir = file.getAbsolutePath() + pathToDatabase;
+
+		try {
+			// Init I/O writers
+			fileWriter = new FileWriter(currentDir + "output.txt");
+			writer = new BufferedWriter(fileWriter);
+			
+			// loop over data while writing to file
+			for(String[] friend : friends) {
+				for(String friendData : friend) { 
+					writer.write(friendData + ",");
+				}
+				writer.newLine();
+			}
+			writer.close();
+			fileWriter.close();
+		} catch (IOException e) { e.printStackTrace(); }
+	}
 }
 

@@ -187,16 +187,11 @@ public class FriendTracker
 			});
 			
 			ta_Bdays.clear();
-			
 			for(String[] friend : data) {
-				for(int i =  0; i < friend.length; i++) {
+				for(int i =  0; i < friend.length; i++)  
 					ta_Bdays.appendText(" - " + friend[i]);
-					
-				}
-					
 				ta_Bdays.appendText("\n");
 			}
-			
 		}
 	    public SearchResultView()
 		{

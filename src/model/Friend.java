@@ -86,6 +86,26 @@ public class Friend
 			}
 			return formattedData;
 		}
+		public static void writeFriendsToDataBase(Friend[] friends, int length)
+		{
+			String[][] friendsData =  new String[length][7];
+			int index = 0;
+
+			for(int i = 0; i < friends.length; i++) {
+				if(friends[i] == null)
+					break;
+				friendsData[i][index] = friends[i].getFriendData()[index++];
+				friendsData[i][index] = friends[i].getFriendData()[index++];
+				friendsData[i][index] = friends[i].getFriendData()[index++];
+				friendsData[i][index] = friends[i].getFriendData()[index++];
+				friendsData[i][index] = friends[i].getFriendData()[index++];
+				friendsData[i][index] = friends[i].getFriendData()[index++];
+				friendsData[i][index] = friends[i].getFriendData()[index++];
+				index = 0; 
+			}
 		
+			db.writeFriendsDataToFile(friendsData);
+			
+		}
 	}// End of Inner Class
 }//End of Main Class
